@@ -1,76 +1,87 @@
-/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Body */
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #5071d5, #3eb78b);
+    background: linear-gradient(135deg, #141e30, #243b55);
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
-/* Container */
-.container {
-    background-color: white;
+#wrapper {
+    background: #ffffff;
+    width: 400px;
     padding: 30px;
-    width: 350px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+h1 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+#guessfield {
+    width: 80%;
+    padding: 10px;
+    margin-top: 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
     text-align: center;
 }
 
-/* Heading */
-.container h1 {
-    margin-bottom: 20px;
+#guessfield:focus {
+    border-color: #243b55;
+    outline: none;
 }
 
-/* Input Group */
-.input-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.input-group input {
-    width: 100%;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-/* Button */
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4e73df;
-    color: white;
+#subt {
+    margin-top: 15px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    border-radius: 8px;
+    background: #243b55;
+    color: white;
     font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-button:hover {
-    background-color: #2e59d9;
+#subt:hover {
+    background: #141e30;
+    transform: scale(1.05);
 }
 
-/* Result */
-.result {
+.resultparas {
     margin-top: 20px;
+    font-size: 15px;
 }
 
-#bmi-value {
-    color: #1cc88a;
+.guesses {
+    color: #e74c3c;
     font-weight: bold;
+}
+
+.lasresult {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.Loworhi {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #243b55;
 }

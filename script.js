@@ -1,33 +1,96 @@
-const form = document.querySelector("form")
-const bmiValue = document.querySelector("#bmi-value")
-const bmiCategory = document.querySelector("#bmi-category")
+let randomNumber = parseInt(Math.random() * 100 + 1);
 
+const submit = document.querySelector('#subt');
+const userInput = document.querySelector('#guessfield');
+const guessSlot = document.querySelector('.guesses');
+const remaining = document.querySelector('.lasresult');
+const lowOrHi = document.querySelector('.Loworhi');
+const startOver = document.querySelector('.resultparas');
 
-form.addEventListener("submit", function (e) {
-    e.preventDefault()
+let p = document.createElement('p');
 
-    const height = parseFloat(document.querySelector("#height").value)
-    const weight = parseFloat(document.querySelector("#weight").value)
+let prevGuess = [];
+let numGuess = 1;
+let playgame = true;
 
-    if (!height || height <= 0) {
-        bmiCategory.textContent = "Please enter valid height"
-        return
-    }
+if (playgame) {
+    submit.addEventListener('click', function (e) {
+        e.preventDefault();
+        const guess = parseInt(userInput.value);
+        validateGuess(guess);
+    });
+}
 
-    if (!weight || weight <= 0) {
-        bmiCategory.textContent = "Please enter valid weight"
-        return
-    }
-
-    const bmi = (weight / ((height * height) / 10000)).toFixed(2)
-
-    bmiValue.textContent = bmi
-
-    if (bmi < 18.6) {
-        bmiCategory.textContent = "Underweight"
-    } else if (bmi >= 18.6 && bmi <= 24.9) {
-        bmiCategory.textContent = "Normal Weight"
+function validateGuess(guess) {
+    if (isNaN(guess)) {
+        alert('Please enter a valid number');
+    } else if (guess < 1) {
+        alert('Please enter a number greater than 0');
+    } else if (guess > 100) {
+        alert('Please enter a number less than 100');
     } else {
-        bmiCategory.textContent = "Overweight"
+        prevGuess.push(guess);
+
+        if (numGuess === 10) {
+            displayGuess(guess);
+            displayMessage(`Game Over! Random number was ${randomNumber}`);
+            endGame();
+        } else {
+            displayGuess(guess);
+            checkGuess(guess);
+        }
     }
-})
+}
+
+function checkGuess(guess) {
+    if (guess === randomNumber) {
+        displayMessage(` You guessed it right!`);
+        endGame();
+    } else if (guess < randomNumber) {
+        displayMessage(`Number is too LOW`);
+    } else {
+        displayMessage(`Number is too HIGH`);
+    }
+}
+
+function displayGuess(guess) {
+    userInput.value = '';
+    guessSlot.innerHTML += `${guess} `;
+    numGuess++;
+    remaining.innerHTML = `${11 - numGuess}`;
+}
+
+function displayMessage(message) {
+    lowOrHi.innerHTML = `<h2>${message}</h2>`;
+}
+
+function endGame() {
+    userInput.value = '';
+    userInput.setAttribute('disabled', '');
+
+    p.classList.add('button');
+    p.innerHTML = `<button id="newGame">Start New Game</button>`;
+    startOver.appendChild(p);
+
+    playgame = false;
+    newGame();
+}
+
+function newGame() {
+    const newGameBtn = document.querySelector('#newGame');
+
+    newGameBtn.addEventListener('click', function () {
+        randomNumber = parseInt(Math.random() * 100 + 1);
+        prevGuess = [];
+        numGuess = 1;
+
+        guessSlot.innerHTML = '';
+        lowOrHi.innerHTML = '';
+        remaining.innerHTML = '10';
+
+        userInput.removeAttribute('disabled');
+        p.remove();
+
+        playgame = true;
+    });
+}
